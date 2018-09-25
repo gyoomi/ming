@@ -1,14 +1,14 @@
 spring:
   profiles:
-    active: dev
-###指定扫描日志配置
-# debug: true
+    active: dev,common
+###鎸囧畾鎵弿鏃ュ織閰嶇疆###
+debug: false
 logging:
-  config: classpath:logback.xml
-###MyBatis扫描文件位置
+  config: classpath:log4j2.xml
+###MyBatis鎵弿鏂囦欢浣嶇疆###
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
-###Pagehelper配置
+###Pagehelper閰嶇疆
 pagehelper:
   helper-dialect: mysql
   reasonable: true
