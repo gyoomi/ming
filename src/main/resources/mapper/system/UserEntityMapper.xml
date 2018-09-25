@@ -98,4 +98,13 @@
     remark
     from sys_user
   </select>
+
+  <!-- 根据登录名查询用户 -->
+  <select id="findUserByUserName" resultMap="BaseResultMap">
+      SELECT
+        t1.*
+      FROM sys_user t1
+      WHERE t1.status = 1
+      AND t1.login_name = #{userName}
+  </select>
 </mapper>

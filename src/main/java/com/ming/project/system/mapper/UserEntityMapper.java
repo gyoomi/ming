@@ -1,6 +1,8 @@
 package com.ming.project.system.mapper;
 
 import com.ming.project.system.domain.UserEntity;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface UserEntityMapper {
@@ -43,4 +45,6 @@ public interface UserEntityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(UserEntity record);
+
+    UserEntity findUserByUserName(@Param("userName") String userName);
 }

@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
     private static Logger lg = LoggerFactory.getLogger(IndexController.class);
 
-    @GetMapping(value = "/index")
+    @GetMapping(value = "/index1")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", "小明");
