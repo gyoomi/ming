@@ -13,7 +13,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 
@@ -23,7 +22,7 @@ import java.util.LinkedHashMap;
  * @author Leon
  * @version 2018/9/25 20:59
  */
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
 
     /**
