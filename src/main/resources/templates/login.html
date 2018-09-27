@@ -6,15 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="keywords" content="管理系统">
     <meta name="description" content="">
+    <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
 </head>
-
 <body>
     <div>
-        <form>
-            <span>用户名：</span><input type="text" name="username"/><br/>
-            <span>密码：</span><input type="password" name="password"/><br/>
-            <button type="submit">登录</button>
-        </form>
+        <span>用户名：</span><input type="text" name="username"/><br/>
+        <span>密码：</span><input type="password" name="password"/><br/>
+        <button id="loginBtn">登录</button>
     </div>
 </body>
+<script type="text/javascript">
+    $(function() {
+        $("#loginBtn").on("click", function() {
+            let username = $("input[name='username']").val();
+            let password = $("input[name='password']").val();
+            $.ajax({
+                url:"/login",
+                type:"post",
+                data:{
+                    "username" : username,
+                    "password" : password
+                },
+                success:function(data) {
+                    if (200 == data.code) {
+                        window.location.href = "/index";
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>
 </html>
