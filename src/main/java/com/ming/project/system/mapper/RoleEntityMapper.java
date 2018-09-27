@@ -43,4 +43,12 @@ public interface RoleEntityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(RoleEntity record);
+
+    /**
+     * Find the role'list by the id of current user
+     *
+     * @param userId
+     * @return
+     */
+    List<RoleEntity> findRoleListByUserId(Integer userId);
 }

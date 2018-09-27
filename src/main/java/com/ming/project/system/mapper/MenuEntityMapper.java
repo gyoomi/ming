@@ -1,6 +1,8 @@
 package com.ming.project.system.mapper;
 
 import com.ming.project.system.domain.MenuEntity;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface MenuEntityMapper {
@@ -43,4 +45,12 @@ public interface MenuEntityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(MenuEntity record);
+
+    /**
+     * Find the permissions'list by the id of current user
+     *
+     * @param userId
+     * @return
+     */
+    List<String> findPermissionListByUserId(@Param("userId") Integer userId);
 }

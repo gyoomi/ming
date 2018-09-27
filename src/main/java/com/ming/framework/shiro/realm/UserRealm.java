@@ -8,6 +8,7 @@ package com.ming.framework.shiro.realm;
 
 import com.ming.project.system.domain.UserEntity;
 import com.ming.project.system.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -33,6 +34,8 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        UserEntity userEntity = (UserEntity) SecurityUtils.getSubject().getPrincipal();
+        userEntity.getUserId();
         return null;
     }
 
