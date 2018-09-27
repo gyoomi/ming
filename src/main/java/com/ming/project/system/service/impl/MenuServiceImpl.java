@@ -9,6 +9,7 @@ package com.ming.project.system.service.impl;
 import com.ming.project.system.mapper.MenuEntityMapper;
 import com.ming.project.system.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @author Leon
  * @version 2018/9/27 17:36
  */
+@Service
 public class MenuServiceImpl implements MenuService {
 
     @Autowired

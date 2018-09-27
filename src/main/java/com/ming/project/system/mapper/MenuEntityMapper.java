@@ -50,7 +50,7 @@ public interface MenuEntityMapper {
      * Find the permissions'list by the id of current user
      *
      * @param userId
-     * @return
+     * @returns
      */
     List<String> findPermissionListByUserId(@Param("userId") Integer userId);
 }

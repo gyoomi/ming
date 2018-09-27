@@ -90,7 +90,7 @@
   </select>
 
   <!-- Find the permissions'list by the id of current user -->
-  <select id="findPermissionListByUserId" resultMap="BaseResultMap">
+  <select id="findPermissionListByUserId" resultType="java.lang.String">
       SELECT
           DISTINCT t1.permission
       FROM sys_menu t1
