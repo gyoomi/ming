@@ -8,6 +8,7 @@ package com.ming.project.system.web;
 
 import com.ming.framework.web.BaseController;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * 类功能描述
@@ -47,15 +49,33 @@ public class LoginController extends BaseController {
         return "login";
     }
 
+
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @param rememberMe
+     * @return
+     */
     @PostMapping(value = "/login")
     @ResponseBody
-    public String login(String username, String password, Boolean rememberMe) {
+    public Map<String, Object> login(String username, String password, Boolean rememberMe) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
-        subject.login(token);
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+            return error("用户名或密码错误");
+        }
         return success("ok");
     }
 
+    /**
+     * 未认证页面跳转
+     *
+     * @return
+     */
     @GetMapping(value = "/unauth")
     public String unAuth() {
         return "/error/unauth";

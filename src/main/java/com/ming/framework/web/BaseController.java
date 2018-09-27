@@ -41,8 +41,11 @@ public abstract class BaseController {
      * @param msg
      * @return
      */
-    public String success(String msg) {
-        return "{\"code\" : \"200\", \"msg\" : \""+ msg +"\"}";
+    public Map<String, Object> success(String msg) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("code", 200);
+        resultMap.put("msg", msg);
+        return resultMap;
     }
 
     /**
@@ -65,7 +68,10 @@ public abstract class BaseController {
      * @param msg
      * @return
      */
-    public String error(String msg) {
-        return "{\"code\" : \"500\", \"msg\" : \""+ msg +"\"}";
+    public Map<String, Object> error(String msg) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("code", 500);
+        resultMap.put("msg", msg);
+        return resultMap;
     }
 }
