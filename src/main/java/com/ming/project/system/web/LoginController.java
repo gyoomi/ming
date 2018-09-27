@@ -55,4 +55,9 @@ public class LoginController extends BaseController {
         subject.login(token);
         return success("ok");
     }
+
+    @GetMapping(value = "/unauth")
+    public String unAuth() {
+        return "/error/unauth";
+    }
 }
