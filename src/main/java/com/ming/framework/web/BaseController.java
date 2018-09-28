@@ -21,6 +21,7 @@ import java.util.Map;
  * @version 2018/9/26 16:49
  */
 public abstract class BaseController {
+
     private static final Logger lg = LoggerFactory.getLogger(BaseController.class);
 
     public BaseController() {}

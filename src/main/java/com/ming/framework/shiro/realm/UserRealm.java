@@ -17,11 +17,11 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,6 +31,8 @@ import java.util.Set;
  * @version 2018/9/25 21:02
  */
 public class UserRealm extends AuthorizingRealm {
+
+    private static final Logger lg = LoggerFactory.getLogger(UserRealm.class);
 
     @Autowired
     private UserService userService;
@@ -50,6 +52,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         UserEntity userEntity = (UserEntity) SecurityUtils.getSubject().getPrincipal();
+        lg.info("加载用户【{}】权限数据", userEntity.getLoginName());
         userEntity.getUserId();
         Set<String> roles = new HashSet<>();
         Set<String> permissions = new HashSet<>();
@@ -58,19 +61,8 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);
         info.setStringPermissions(permissions);
+        lg.info("加载用户【{}】权限数据；结束！", userEntity.getLoginName());
         return info;
-    }
-
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        Set<String> roles = new HashSet<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("3");
-        roles.addAll(list);
-//        list.stream().forEach(roles::add);
-        System.out.println(roles);
     }
 
     /**
@@ -83,12 +75,15 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
+        lg.info("检测用户【{}】认证凭证", upToken.getUsername());
         String userName = upToken.getUsername();
         UserEntity userEntity = userService.findUserByUserName(userName);
         if (null == userEntity || userEntity.getPassword() == null) {
+            lg.error("检测用户【{}】认证凭证失败！", upToken.getUsername());
             return null;
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userEntity, userEntity.getPassword(), getName());
+        lg.info("检测用户【{}】认证凭证；结束！", upToken.getUsername());
         return info;
     }
 }
