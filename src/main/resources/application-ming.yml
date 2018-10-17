@@ -1,0 +1,5 @@
+ming:
+  common:
+    gen:
+      auto-remove-prefix: true
+      package-name: com.ming.test

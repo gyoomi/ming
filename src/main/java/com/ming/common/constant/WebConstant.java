@@ -13,4 +13,6 @@ package com.ming.common.constant;
  * @version 2018/9/24 21:08
  */
 public class WebConstant {
+
+    public static final String DEFAULT_CHARSET = "UTF-8";
 }

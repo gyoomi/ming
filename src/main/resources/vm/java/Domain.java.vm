@@ -1,0 +1,48 @@
+/**
+ * Copyright © 2018, Leon
+ * <p>
+ * All Rights Reserved.
+ */
+package ${package}.domain;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.ming.framework.BaseEntity;
+#foreach($column in $columns)
+#if($column.fieldType == 'Date')
+import java.util.Date;
+#end
+#end
+
+/**
+ * ${tableComment}表 Entity
+ *
+ * @author ${author}
+ * @version ${datetime}
+ */
+public class TableEntity extends BaseEntity {
+
+    #foreach($column in $columns)
+    private $column.fieldType $column.littleCamelCaseFieldName;
+    #end
+
+    #foreach($column in $columns)
+    public void set${column.bigCamelCaseFieldName}($column.fieldType $column.littleCamelCaseFieldName) {
+        this.$column.littleCamelCaseFieldName = $column.littleCamelCaseFieldName;
+    }
+    public $column.fieldType get${column.bigCamelCaseFieldName}() {
+        return $column.littleCamelCaseFieldName;
+    }
+    #end
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+#foreach ($column in $columns)
+        .append("${column.littleCamelCaseFieldName}", get${column.bigCamelCaseFieldName}())
+#end
+        .toString();
+    }
+
+
+}
