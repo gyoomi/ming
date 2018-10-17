@@ -1,0 +1,67 @@
+/**
+ * Copyright © 2018, Leon
+ * <p>
+ * All Rights Reserved.
+ */
+
+package ${package}.service;
+
+import ${package}.domain.${bigCamelCaseClassName};
+import java.util.List;
+
+/**
+ * ${tableComment} Service
+ *
+ * @author ${author}
+ * @version ${datetime}
+ */
+public interface ${bigCamelCaseClassName}Service {
+
+    /**
+     * 查询${tableComment}信息
+     *
+     * @param ${primary.littleCamelCaseFieldName} ${tableComment}Id
+     * @return ${tableComment}
+     */
+    ${bigCamelCaseClassName} findById(${parimary.fieldType} ${primary.littleCamelCaseFieldName});
+
+    /**
+     * 查询${tableComment}列表
+     *
+     * @param ${littleCamelCaseClassName} ${tableComment}
+     * @return ${tableComment}List
+     */
+    List<${bigCamelCaseClassName}> findByList(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+
+    /**
+     * 保存${tableComment}
+     *
+     * @param ${littleCamelCaseClassName} ${tableComment}
+     * @return ${tableComment}
+     */
+     ${bigCamelCaseClassName} save(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+
+    /**
+     * 更新${tableComment}
+     *
+     * @param ${littleCamelCaseClassName} ${tableComment}
+     * @return ${tableComment}
+     */
+     ${bigCamelCaseClassName} update(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+
+    /**
+     * 删除${tableComment}
+     *
+     * @param ${primary.littleCamelCaseFieldName}
+     * @return
+     */
+    int deleteById(${primary.fieldType} ${primary.littleCamelCaseFieldName});
+
+    /**
+     * 批量删除${tableComment}
+     *
+     * @param ${primary.littleCamelCaseFieldName}s
+     * @return
+     */
+    int deleteByIds(String ${primary.littleCamelCaseFieldName}s);
+}

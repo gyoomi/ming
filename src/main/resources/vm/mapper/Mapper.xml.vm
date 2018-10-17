@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.mapper.${bigCamelCaseClassName}Mapper">
+
+    <resultMap id="${bigCamelCaseClassName}ResultMap" type="${bigCamelCaseClassName}">
+        #foreach($column in $columns)
+        <result property="${column.littleCamelCaseFieldName}" column="${column.columnName}" />
+        #end
+    </resultMap>
+
+    <sql id="mappingVo">
+        SELECT
+        #foreach($column in $columns)
+        $column.columnName #if($velocityCount != $columns.size()),#end
+        #end
+    </sql>
+
+    <select id="findByList" parameterType="${bigCamelCaseClassName}" resultMap="${bigCamelCaseClassName}ResultMap">
+        <include refid="mappingVo" />
+        <where>
+            #foreach($column in $columns)
+                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName.trim() != '' #end"> and $column.columnName = #{$column.littleCamelCaseFieldName}</if>
+            #end
+        </where>
+    </select>
+
+    <select id="findById" parameterType="${primary.fieldType}" resultMap="${bigCamelCaseClassName}ResultMap">
+        <include refid="mappingVo" />
+        WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
+    </select>
+
+    <insert id="save" parameterType="${bigCamelCaseClassName}" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primary.littleCamelCaseFieldName"#end>
+        INSERT INTO ${tableName}
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
+                    <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName, </if>
+                #end
+            #end
+            </trim>
+            <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
+                    <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
+                #end
+            #end
+            </trim>
+    </insert>
+
+    <update id="update" parameterType="${bigCamelCaseClassName}">
+        UPDATE ${tableName}
+        <trim prefix="SET" suffixOverrides=",">
+        #foreach($column in $columns)
+        #if($column.columnName != $primary.columnName)
+            <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName = #{$column.littleCamelCaseFieldName}, </if>
+        #end
+        #end
+        </trim>
+        WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
+    </update>
+
+    <delete id="deleteById" parameterType="${primary.fieldType}">
+        DELETE FROM ${tableName} WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        DELETE FROM ${tableName} WHERE ${primary.columnName} in
+        <foreach item="${primary.littleCamelCaseFieldName}" collection="array" open="(" separator="," close=")">
+            #{${primary.littleCamelCaseFieldName}}
+        </foreach>
+    </delete>
+
+
+</mapper>
+
+
+
+
+
+

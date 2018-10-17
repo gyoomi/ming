@@ -102,7 +102,7 @@ public class GenUtils {
         velocityContext.put("moduleName", getModuleName(projectProperties.getGen().getPackageName()));
         velocityContext.put("package", projectProperties.getGen().getPackageName());
         velocityContext.put("columns", tableEntity.getColumns());
-        velocityContext.put("datetime", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        velocityContext.put("datetime", DateFormatUtils.format(new Date(), "yyyy/MM/dd HH:mm"));
         velocityContext.put("author", projectProperties.getGen().getAuthor());
         return velocityContext;
     }

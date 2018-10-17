@@ -20,9 +20,12 @@ import java.util.Date;
  * @author ${author}
  * @version ${datetime}
  */
-public class TableEntity extends BaseEntity {
+public class ${bigCamelCaseClassName}Entity extends BaseEntity {
 
     #foreach($column in $columns)
+    /**
+     * ${column.columnComment}
+     */
     private $column.fieldType $column.littleCamelCaseFieldName;
     #end
 
