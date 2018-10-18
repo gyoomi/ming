@@ -2,4 +2,4 @@ ming:
   common:
     gen:
       autoRemovePrefix: true
-      packageName: com.ming.test
+      packageName: com.ming.project.system

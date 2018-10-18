@@ -8,7 +8,9 @@
 #end
     </resultMap>
 
-    <sql id="mappingVo"> SELECT #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end </sql>
+    <sql id="mappingVo">
+        SELECT #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end#end FROM ${tableName}
+    </sql>
 
     <select id="findByList" parameterType="${bigCamelCaseClassName}Entity" resultMap="${bigCamelCaseClassName}ResultMap">
         <include refid="mappingVo" />
