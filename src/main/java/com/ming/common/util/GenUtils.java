@@ -14,6 +14,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,9 +25,9 @@ import java.util.stream.Collectors;
  * @author Leon
  * @version 2018/10/16 22:51
  */
+@Component
 public class GenUtils {
 
-    @Autowired
     private static ProjectProperties projectProperties;
 
     private static final String PROJECT_PATH = "main/java/ming";
@@ -35,6 +36,10 @@ public class GenUtils {
 
     private static final Map<String, String> javaTypeMap = new HashMap<>(32);
 
+    @Autowired(required = true)
+    public void setProjectProperties(ProjectProperties projectProperties) {
+        GenUtils.projectProperties = projectProperties;
+    }
     /**
      *  表名转类名
      *
@@ -107,12 +112,62 @@ public class GenUtils {
         return velocityContext;
     }
 
+    /**
+     * 获取模板信息
+     *
+     * @return
+     */
+    public static List<String> getTemplates() {
+        List<String> templates = new ArrayList<>();
+        templates.add("vm/java/Controller.java.vm");
+        templates.add("vm/java/Domain.java.vm");
+        templates.add("vm/java/Mapper.java.vm");
+        templates.add("vm/java/Service.java.vm");
+        templates.add("vm/java/ServiceImpl.java.vm");
+        templates.add("vm/mapper/Mapper.xml.vm");
+        return templates;
+    }
+
+    /**
+     * 动态获取文件名
+     *
+     * @param template
+     * @param tableEntity
+     * @param moduleName
+     * @return
+     */
+    public static String getFileName(String template, TableEntity tableEntity, String moduleName) {
+        String littleCamelCaseClassName = tableEntity.getLittleCamelCaseClassName();
+        String bigCamelCaseClassName = tableEntity.getBigCamelCaseClassName();
+        String javaPath = PROJECT_PATH + "/" + moduleName + "/";
+        String mapperPath = MAPPER_PATH + "/" + moduleName + "/" + littleCamelCaseClassName;
+        if (template.contains("Domain.java.vm")) {
+            return javaPath + "domain" + "/" + bigCamelCaseClassName + "Entity.java";
+        }
+        if (template.contains("Mapper.java.vm")) {
+            return javaPath + "mapper" + "/" + bigCamelCaseClassName + "Mapper.java";
+        }
+        if (template.contains("Service.java.vm")) {
+            return javaPath + "service" + "/" + bigCamelCaseClassName + "Service.java";
+        }
+        if (template.contains("ServiceImpl.java.vm")) {
+            return javaPath + "service/impl" + "/" + bigCamelCaseClassName + "ServiceImpl.java";
+        }
+        if (template.contains("Controller.java.vm")) {
+            return javaPath + "web/controller" + "/" + bigCamelCaseClassName + "Controller.java";
+        }
+        if (template.contains("Mapper.xml.vm")) {
+            return mapperPath + "Mapper.xml";
+        }
+        return null;
+    }
+
     static {
         javaTypeMap.put("tinyint", "Integer");
         javaTypeMap.put("smallint", "Integer");
         javaTypeMap.put("mediumint", "Integer");
         javaTypeMap.put("int", "Integer");
-        javaTypeMap.put("integer", "integer");
+        javaTypeMap.put("integer", "Integer");
         javaTypeMap.put("bigint", "Long");
         javaTypeMap.put("float", "Float");
         javaTypeMap.put("double", "Double");

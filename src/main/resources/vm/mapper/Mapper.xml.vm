@@ -2,25 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${package}.mapper.${bigCamelCaseClassName}Mapper">
 
-    <resultMap id="${bigCamelCaseClassName}ResultMap" type="${bigCamelCaseClassName}">
-        #foreach($column in $columns)
+    <resultMap id="${bigCamelCaseClassName}ResultMap" type="${bigCamelCaseClassName}Entity">
+#foreach($column in $columns)
         <result property="${column.littleCamelCaseFieldName}" column="${column.columnName}" />
-        #end
+#end
     </resultMap>
 
     <sql id="mappingVo">
-        SELECT
-        #foreach($column in $columns)
-        $column.columnName #if($velocityCount != $columns.size()),#end
-        #end
+        SELECT #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end
     </sql>
 
-    <select id="findByList" parameterType="${bigCamelCaseClassName}" resultMap="${bigCamelCaseClassName}ResultMap">
+    <select id="findByList" parameterType="${bigCamelCaseClassName}Entity" resultMap="${bigCamelCaseClassName}ResultMap">
         <include refid="mappingVo" />
         <where>
-            #foreach($column in $columns)
-                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName.trim() != '' #end"> and $column.columnName = #{$column.littleCamelCaseFieldName}</if>
-            #end
+#foreach($column in $columns)
+            <if test=" $column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName.trim() != '' #end"> and $column.columnName = #{$column.littleCamelCaseFieldName}</if>
+#end
         </where>
     </select>
 
@@ -29,32 +26,32 @@
         WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
     </select>
 
-    <insert id="save" parameterType="${bigCamelCaseClassName}" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primary.littleCamelCaseFieldName"#end>
+    <insert id="save" parameterType="${bigCamelCaseClassName}Entity" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primary.littleCamelCaseFieldName"#end>
         INSERT INTO ${tableName}
             <trim prefix="(" suffix=")" suffixOverrides=",">
-            #foreach($column in $columns)
-                #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
-                    <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName, </if>
-                #end
-            #end
+#foreach($column in $columns)
+#if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
+                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName, </if>
+#end
+#end
             </trim>
             <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
-            #foreach($column in $columns)
-                #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
-                    <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
-                #end
-            #end
+#foreach($column in $columns)
+#if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
+                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
+#end
+#end
             </trim>
     </insert>
 
-    <update id="update" parameterType="${bigCamelCaseClassName}">
+    <update id="update" parameterType="${bigCamelCaseClassName}Entity">
         UPDATE ${tableName}
         <trim prefix="SET" suffixOverrides=",">
-        #foreach($column in $columns)
-        #if($column.columnName != $primary.columnName)
+#foreach($column in $columns)
+#if($column.columnName != $primary.columnName)
             <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName = #{$column.littleCamelCaseFieldName}, </if>
-        #end
-        #end
+#end
+#end
         </trim>
         WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
     </update>

@@ -1,0 +1,93 @@
+package ${package}.web.controller;
+
+import com.ming.framework.web.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ${package}.domain.${bigCamelCaseClassName}Entity;
+import ${package}.service.${bigCamelCaseClassName}Service;
+
+/**
+ * ${tableComment} Controller
+ *
+ * @author ${author}
+ * @version ${datetime}
+ */
+@RestController
+@RequestMapping(value = "/${moduleName}/${littleCamelCaseClassName}")
+public class ${bigCamelCaseClassName}Controller extends BaseController {
+
+    @Autowired
+    private ${bigCamelCaseClassName}Service ${littleCamelCaseClassName}Service;
+
+    /**
+     * 保存${tableComment}
+     *
+     * @param ${littleCamelCaseClassName}
+     * @return ${bigCamelCaseClassName}
+     */
+    @PostMapping(value = "/save")
+    public ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+        return ${littleCamelCaseClassName}Service.save(${littleCamelCaseClassName});
+    }
+
+    /**
+     * 更新${tableComment}
+     *
+     * @param ${littleCamelCaseClassName}
+     * @return ${bigCamelCaseClassName}
+     */
+    @PostMapping(value = "/update")
+    public ${bigCamelCaseClassName}Entity update(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+        return ${littleCamelCaseClassName}Service.update(${littleCamelCaseClassName});
+    }
+
+    /**
+     * 查询${tableComment}列表
+     *
+     * @param ${littleCamelCaseClassName} ${tableComment}
+     * @return ${tableComment}List
+     */
+    @PostMapping(value = "/findByList")
+    public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+        return ${littleCamelCaseClassName}Service.findByList(${littleCamelCaseClassName});
+    }
+
+    /**
+     * 查询${tableComment}信息
+     *
+     * @param ${primary.littleCamelCaseFieldName} ${tableComment}Id
+     * @return ${tableComment}
+     */
+    @GetMapping(value = "/findById")
+    public ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
+        return ${littleCamelCaseClassName}Service.findById(${primary.littleCamelCaseFieldName});
+    }
+
+    /**
+     * 删除${tableComment}
+     *
+     * @param ${primary.littleCamelCaseFieldName}
+     */
+    @GetMapping(value = "/deleteById")
+    public void deleteById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
+        ${littleCamelCaseClassName}Service.deleteById(${primary.littleCamelCaseFieldName});
+    }
+
+    /**
+     * 批量删除${tableComment}
+     *
+     * @param ${primary.littleCamelCaseFieldName}s
+     *
+     */
+    @GetMapping(value = "/deleteByIds")
+    public void deleteByIds(String ${primary.littleCamelCaseFieldName}s) {
+        ${littleCamelCaseClassName}Service.deleteByIds(${primary.littleCamelCaseFieldName}s);
+    }
+
+
+
+
+}

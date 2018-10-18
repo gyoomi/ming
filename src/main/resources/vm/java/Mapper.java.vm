@@ -6,7 +6,7 @@
 
 package ${package}.mapper;
 
-import ${package}.domain.${bigCamelCaseClassName};
+import ${package}.domain.${bigCamelCaseClassName}Entity;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public interface ${bigCamelCaseClassName}Mapper {
      * @param ${primary.littleCamelCaseFieldName} ${tableComment}Id
      * @return ${tableComment}
      */
-    ${bigCamelCaseClassName} findById(${parimary.fieldType} ${primary.littleCamelCaseFieldName});
+    ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName});
 
     /**
      * 查询列表
@@ -31,7 +31,7 @@ public interface ${bigCamelCaseClassName}Mapper {
      * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}List
      */
-    List<${bigCamelCaseClassName}> findByList(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+    List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
 
     /**
      * 保存
@@ -39,7 +39,7 @@ public interface ${bigCamelCaseClassName}Mapper {
      * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}
      */
-    ${bigCamelCaseClassName} save(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+    ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
 
     /**
      * 更新
@@ -47,7 +47,7 @@ public interface ${bigCamelCaseClassName}Mapper {
      * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}
      */
-    ${bigCamelCaseClassName} update(${bigCamelCaseClassName} ${littleCamelCaseClassName});
+    ${bigCamelCaseClassName}Entity update(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
 
     /**
      * 删除

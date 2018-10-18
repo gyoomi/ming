@@ -34,6 +34,7 @@
         <swagger.ui.version>2.7.0</swagger.ui.version>
         <shiro.version>1.4.0</shiro.version>
         <velocity.version>1.7</velocity.version>
+        <common.io.version>2.6</common.io.version>
     </properties>
 
     <dependencies>
@@ -165,6 +166,19 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
+        </dependency>
+
+        <!-- io工具包 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${common.io.version}</version>
+        </dependency>
+
+        <!-- yml解析器 -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
 
     </dependencies>

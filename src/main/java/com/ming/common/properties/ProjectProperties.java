@@ -7,7 +7,6 @@
 package com.ming.common.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 类功能描述
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Leon
  * @version 2018/10/17 10:31
  */
-@Configuration
 @ConfigurationProperties(prefix = "ming.common")
 public class ProjectProperties {
 

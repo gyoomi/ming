@@ -6,9 +6,11 @@
 
 package com.ming.project.generator.web;
 
+import com.ming.common.properties.ProjectProperties;
 import com.ming.framework.web.BaseController;
 import com.ming.project.generator.service.GenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,7 +25,12 @@ public class GenController extends BaseController {
     @Autowired
     private GenService genService;
 
+    @Autowired
+    private ProjectProperties projectProperties;
+
+    @GetMapping("/gentest")
     public void genCode(String tableName) {
-        genService.generatorCode(tableName);
+        System.out.println(projectProperties);
+        genService.generatorCode("sys_dept");
     }
 }
