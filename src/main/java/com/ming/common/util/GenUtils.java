@@ -30,7 +30,7 @@ public class GenUtils {
 
     private static ProjectProperties projectProperties;
 
-    private static final String PROJECT_PATH = "main/java/ming";
+    private static final String PROJECT_PATH = "main/java/com/ming";
 
     private static final String MAPPER_PATH = "main/resource/mapper";
 
@@ -157,7 +157,7 @@ public class GenUtils {
             return javaPath + "web/controller" + "/" + bigCamelCaseClassName + "Controller.java";
         }
         if (template.contains("Mapper.xml.vm")) {
-            return mapperPath + "Mapper.xml";
+            return mapperPath + bigCamelCaseClassName +  "Mapper.xml";
         }
         return null;
     }

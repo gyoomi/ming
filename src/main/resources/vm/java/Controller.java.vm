@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ${package}.domain.${bigCamelCaseClassName}Entity;
 import ${package}.service.${bigCamelCaseClassName}Service;
 
+import java.util.List;
+
 /**
  * ${tableComment} Controller
  *

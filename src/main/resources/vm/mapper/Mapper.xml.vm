@@ -8,9 +8,7 @@
 #end
     </resultMap>
 
-    <sql id="mappingVo">
-        SELECT #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end
-    </sql>
+    <sql id="mappingVo"> SELECT #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end </sql>
 
     <select id="findByList" parameterType="${bigCamelCaseClassName}Entity" resultMap="${bigCamelCaseClassName}ResultMap">
         <include refid="mappingVo" />
@@ -28,20 +26,20 @@
 
     <insert id="save" parameterType="${bigCamelCaseClassName}Entity" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primary.littleCamelCaseFieldName"#end>
         INSERT INTO ${tableName}
-            <trim prefix="(" suffix=")" suffixOverrides=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
-                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName, </if>
+            <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.columnName, </if>
 #end
 #end
-            </trim>
-            <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
+        </trim>
+        <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
-                <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
+            <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
 #end
 #end
-            </trim>
+        </trim>
     </insert>
 
     <update id="update" parameterType="${bigCamelCaseClassName}Entity">

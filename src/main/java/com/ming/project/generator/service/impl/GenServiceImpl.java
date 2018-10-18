@@ -20,6 +20,7 @@ import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.StringWriter;
 import java.util.List;
@@ -59,9 +60,11 @@ public class GenServiceImpl implements GenService {
         String moduleName = GenUtils.getModuleName(packageName);
         VelocityContext context = GenUtils.getVelocityContext(tableEntity);
         List<String> templates = GenUtils.getTemplates();
-        templates.forEach(t -> {
+        for (String t : templates) {
             try {
-                FileWriter fw = new FileWriter("d:\\" + GenUtils.getFileName(t, tableEntity, moduleName));
+                File f = new File("d:\\" + GenUtils.getFileName(t, tableEntity, moduleName));
+                fileProber(f);
+                FileWriter fw = new FileWriter(f);
                 StringWriter sw = new StringWriter();
                 Template template = Velocity.getTemplate(t, WebConstant.DEFAULT_CHARSET);
                 template.merge(context, sw);
@@ -71,17 +74,38 @@ public class GenServiceImpl implements GenService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }
+    }
+
+    /**
+     * 文件探测
+     *
+     * When the parent file not exist.Create it.
+     *
+     * @param dirFile
+     * @throws Exception
+     */
+    public static void fileProber(File dirFile) throws Exception {
+        File parentFile = dirFile.getParentFile();
+        if (!parentFile.exists()) {
+            fileProber(parentFile);
+            parentFile.mkdirs();
+        }
     }
 
     public static void main(String[] args) throws Exception {
-        FileWriter fw = new FileWriter("d:\\test\\test.txt");
+        File f = new File("d:\\test\\test.txt");
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+       // System.out.println(f.exists());
+       /* FileWriter fw = new FileWriter(f);
         StringWriter sw = new StringWriter();
         sw.append("hhahahahhaljljoewrier");
         fw.write(sw.toString());
         sw.flush();
         fw.flush();
         sw.close();
-        fw.close();
+        fw.close();*/
     }
 }

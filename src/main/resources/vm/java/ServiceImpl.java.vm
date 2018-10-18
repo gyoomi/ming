@@ -40,7 +40,7 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      * @return ${tableComment}List
      */
     @Override
-    public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName} ${littleCamelCaseClassName}) {
+    public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
         return ${littleCamelCaseClassName}Mapper.findByList(${littleCamelCaseClassName});
     }
 
@@ -86,6 +86,6 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
     @Override
     public int deleteByIds(String ${primary.littleCamelCaseFieldName}s) {
         String[] ids = StringUtils.split(${primary.littleCamelCaseFieldName}s, ",");
-        return ${littleCamelCaseClassName}Mapper.deleteById(ids);
+        return ${littleCamelCaseClassName}Mapper.deleteByIds(ids);
     }
 }
