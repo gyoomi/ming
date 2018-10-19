@@ -93,19 +93,4 @@ public class GenServiceImpl implements GenService {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        File f = new File("d:\\test\\test.txt");
-        if (!f.exists()) {
-            f.createNewFile();
-        }
-       // System.out.println(f.exists());
-       /* FileWriter fw = new FileWriter(f);
-        StringWriter sw = new StringWriter();
-        sw.append("hhahahahhaljljoewrier");
-        fw.write(sw.toString());
-        sw.flush();
-        fw.flush();
-        sw.close();
-        fw.close();*/
-    }
 }

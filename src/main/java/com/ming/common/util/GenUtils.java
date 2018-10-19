@@ -30,15 +30,17 @@ public class GenUtils {
 
     private static ProjectProperties projectProperties;
 
-    private static final String PROJECT_PATH = "main/java/com/ming";
+    private static String PROJECT_PATH;
 
-    private static final String MAPPER_PATH = "main/resource/mapper";
+    private static String MAPPER_PATH;
 
     private static final Map<String, String> javaTypeMap = new HashMap<>(32);
 
     @Autowired(required = true)
     public void setProjectProperties(ProjectProperties projectProperties) {
         GenUtils.projectProperties = projectProperties;
+        PROJECT_PATH = projectProperties.getGen().getProjectPath();
+        MAPPER_PATH = projectProperties.getGen().getMapperPath();
     }
     /**
      *  表名转类名
@@ -140,7 +142,7 @@ public class GenUtils {
         String littleCamelCaseClassName = tableEntity.getLittleCamelCaseClassName();
         String bigCamelCaseClassName = tableEntity.getBigCamelCaseClassName();
         String javaPath = PROJECT_PATH + "/" + moduleName + "/";
-        String mapperPath = MAPPER_PATH + "/" + moduleName + "/" + littleCamelCaseClassName;
+        String mapperPath = MAPPER_PATH + "/" + moduleName + "/";
         if (template.contains("Domain.java.vm")) {
             return javaPath + "domain" + "/" + bigCamelCaseClassName + "Entity.java";
         }

@@ -20,6 +20,10 @@ public class GenProperties {
 
     private String author = "Leon";
 
+    private String projectPath = "main/java/com/ming";
+
+    private String mapperPath = "main/resource/mapper";
+
     public Boolean getAutoRemovePrefix() {
         return autoRemovePrefix;
     }
@@ -42,5 +46,21 @@ public class GenProperties {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
+    }
+
+    public String getMapperPath() {
+        return mapperPath;
+    }
+
+    public void setMapperPath(String mapperPath) {
+        this.mapperPath = mapperPath;
     }
 }

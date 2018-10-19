@@ -4,7 +4,11 @@
 
     <resultMap id="${bigCamelCaseClassName}ResultMap" type="${bigCamelCaseClassName}Entity">
 #foreach($column in $columns)
+#if($column.littleCamelCaseFieldName == $primary.littleCamelCaseFieldName)
+        <id property="$column.littleCamelCaseFieldName" column="$column.columnName"  />
+#else
         <result property="${column.littleCamelCaseFieldName}" column="${column.columnName}" />
+#end
 #end
     </resultMap>
 
@@ -26,7 +30,7 @@
         WHERE ${primary.columnName} = #{${primary.littleCamelCaseFieldName}}
     </select>
 
-    <insert id="save" parameterType="${bigCamelCaseClassName}Entity" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$primary.littleCamelCaseFieldName"#end>
+    <insert id="save" parameterType="${bigCamelCaseClassName}Entity" #if($primary.extra == 'auto_increment') useGeneratedKeys="true" keyColumn="$primary.columnName" keyProperty="$primary.littleCamelCaseFieldName"#end>
         INSERT INTO ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
@@ -38,10 +42,15 @@
         <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $primary.columnName || $primary.extra != 'auto_increment')
-            <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">$column.littleCamelCaseFieldName, </if>
+            <if test="$column.littleCamelCaseFieldName != null #if($column.fieldType == 'String' ) and $column.littleCamelCaseFieldName != '' #end ">#{$column.littleCamelCaseFieldName}, </if>
 #end
 #end
         </trim>
+#if($primary.extra == 'auto_increment')
+        <selectKey resultType="$primary.fieldType" keyProperty="$primary.littleCamelCaseFieldName" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+#end
     </insert>
 
     <update id="update" parameterType="${bigCamelCaseClassName}Entity">
