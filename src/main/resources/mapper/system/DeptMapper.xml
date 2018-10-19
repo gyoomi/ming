@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ming.project.system.mapper.DeptMapper">
+
+    <resultMap id="DeptResultMap" type="DeptEntity">
+        <id property="deptId" column="dept_id"  />
+        <result property="parentId" column="parent_id" />
+        <result property="deptName" column="dept_name" />
+        <result property="orderNum" column="order_num" />
+        <result property="leader" column="leader" />
+        <result property="phone" column="phone" />
+        <result property="email" column="email" />
+        <result property="status" column="status" />
+        <result property="createUser" column="create_user" />
+        <result property="createDate" column="create_date" />
+        <result property="updateUser" column="update_user" />
+        <result property="updateDate" column="update_date" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="mappingVo">
+        SELECT  dept_id, parent_id, dept_name, order_num, leader, phone, email, status, create_user, create_date, update_user, update_date, remark FROM sys_dept
+    </sql>
+
+    <select id="findByList" parameterType="DeptEntity" resultMap="DeptResultMap">
+        <include refid="mappingVo" />
+        <where>
+            <if test=" deptId != null "> and dept_id = #{deptId}</if>
+            <if test=" parentId != null "> and parent_id = #{parentId}</if>
+            <if test=" deptName != null  and deptName != '' "> and dept_name = #{deptName}</if>
+            <if test=" orderNum != null "> and order_num = #{orderNum}</if>
+            <if test=" leader != null  and leader != '' "> and leader = #{leader}</if>
+            <if test=" phone != null  and phone != '' "> and phone = #{phone}</if>
+            <if test=" email != null  and email != '' "> and email = #{email}</if>
+            <if test=" status != null "> and status = #{status}</if>
+            <if test=" createUser != null  and createUser != '' "> and create_user = #{createUser}</if>
+            <if test=" createDate != null "> and create_date = #{createDate}</if>
+            <if test=" updateUser != null  and updateUser != '' "> and update_user = #{updateUser}</if>
+            <if test=" updateDate != null "> and update_date = #{updateDate}</if>
+            <if test=" remark != null  and remark != '' "> and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="DeptResultMap">
+        <include refid="mappingVo" />
+        WHERE dept_id = #{deptId}
+    </select>
+
+    <insert id="save" parameterType="DeptEntity"  useGeneratedKeys="true" keyColumn="dept_id" keyProperty="deptId">
+        INSERT INTO sys_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null  ">parent_id, </if>
+            <if test="deptName != null  and deptName != ''  ">dept_name, </if>
+            <if test="orderNum != null  ">order_num, </if>
+            <if test="leader != null  and leader != ''  ">leader, </if>
+            <if test="phone != null  and phone != ''  ">phone, </if>
+            <if test="email != null  and email != ''  ">email, </if>
+            <if test="status != null  ">status, </if>
+            <if test="createUser != null  and createUser != ''  ">create_user, </if>
+            <if test="createDate != null  ">create_date, </if>
+            <if test="updateUser != null  and updateUser != ''  ">update_user, </if>
+            <if test="updateDate != null  ">update_date, </if>
+            <if test="remark != null  and remark != ''  ">remark, </if>
+        </trim>
+        <trim prefix=" VALUES(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null  ">#{parentId}, </if>
+            <if test="deptName != null  and deptName != ''  ">#{deptName}, </if>
+            <if test="orderNum != null  ">#{orderNum}, </if>
+            <if test="leader != null  and leader != ''  ">#{leader}, </if>
+            <if test="phone != null  and phone != ''  ">#{phone}, </if>
+            <if test="email != null  and email != ''  ">#{email}, </if>
+            <if test="status != null  ">#{status}, </if>
+            <if test="createUser != null  and createUser != ''  ">#{createUser}, </if>
+            <if test="createDate != null  ">#{createDate}, </if>
+            <if test="updateUser != null  and updateUser != ''  ">#{updateUser}, </if>
+            <if test="updateDate != null  ">#{updateDate}, </if>
+            <if test="remark != null  and remark != ''  ">#{remark}, </if>
+        </trim>
+        <selectKey resultType="Integer" keyProperty="deptId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="DeptEntity">
+        UPDATE sys_dept
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null  ">parent_id = #{parentId}, </if>
+            <if test="deptName != null  and deptName != ''  ">dept_name = #{deptName}, </if>
+            <if test="orderNum != null  ">order_num = #{orderNum}, </if>
+            <if test="leader != null  and leader != ''  ">leader = #{leader}, </if>
+            <if test="phone != null  and phone != ''  ">phone = #{phone}, </if>
+            <if test="email != null  and email != ''  ">email = #{email}, </if>
+            <if test="status != null  ">status = #{status}, </if>
+            <if test="createUser != null  and createUser != ''  ">create_user = #{createUser}, </if>
+            <if test="createDate != null  ">create_date = #{createDate}, </if>
+            <if test="updateUser != null  and updateUser != ''  ">update_user = #{updateUser}, </if>
+            <if test="updateDate != null  ">update_date = #{updateDate}, </if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark}, </if>
+        </trim>
+        WHERE dept_id = #{deptId}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        DELETE FROM sys_dept WHERE dept_id = #{deptId}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        DELETE FROM sys_dept WHERE dept_id in
+        <foreach item="deptId" collection="array" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+    </delete>
+
+
+</mapper>
+
+
+
+
+
+
