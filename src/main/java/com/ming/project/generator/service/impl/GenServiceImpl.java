@@ -14,9 +14,12 @@ import com.ming.project.generator.domain.ColumnEntity;
 import com.ming.project.generator.domain.TableEntity;
 import com.ming.project.generator.mapper.GenMapper;
 import com.ming.project.generator.service.GenService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 类功能描述
@@ -34,20 +38,45 @@ import java.util.List;
 @Service
 public class GenServiceImpl implements GenService {
 
+    private static final Logger lg = LoggerFactory.getLogger(GenServiceImpl.class);
+
     @Autowired
     private GenMapper genMapper;
 
     @Autowired
     private ProjectProperties projectProperties;
 
+    /**
+     * 生成
+     *
+     * @param tableName
+     */
     @Override
     public void generatorCode(String tableName) {
         TableEntity table = genMapper.findTableByName(tableName);
         List<ColumnEntity> columns = genMapper.findColumnsByName(tableName);
         generatorCode(table, columns);
-        System.out.println("over");
+        lg.info(">>> Generate {} successful <<<", table);
     }
 
+    /**
+     * 批量生成
+     *
+     * @param tableNames
+     */
+    @Override
+    public void batchGeneratorCode(String[] tableNames) {
+        if (ArrayUtils.isNotEmpty(tableNames)) {
+            Stream.of(tableNames).forEach(t -> generatorCode(t));
+        }
+    }
+
+    /**
+     * Make file for the table of tableName
+     *
+     * @param tableEntity
+     * @param columns
+     */
     private void generatorCode(TableEntity tableEntity, List<ColumnEntity> columns) {
         // 表、类
         String className = GenUtils.tableToJava(tableEntity.getTableName());
@@ -78,9 +107,8 @@ public class GenServiceImpl implements GenService {
     }
 
     /**
-     * 文件探测
-     *
      * When the parent file not exist.Create it.
+     *
      *
      * @param dirFile
      * @throws Exception

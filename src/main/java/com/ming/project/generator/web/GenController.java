@@ -7,6 +7,7 @@
 package com.ming.project.generator.web;
 
 import com.ming.common.properties.ProjectProperties;
+import com.ming.common.util.StringUtils;
 import com.ming.framework.web.BaseController;
 import com.ming.project.generator.service.GenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,13 @@ public class GenController extends BaseController {
     @Autowired
     private ProjectProperties projectProperties;
 
-    @GetMapping("/gentest")
+    @GetMapping("/genCode")
     public void genCode(String tableName) {
-        System.out.println(projectProperties);
-        genService.generatorCode("sys_dept");
+        genService.generatorCode(tableName);
+    }
+
+    @GetMapping("/batchGenCode")
+    public void batchGenCode(String tableNames) {
+        genService.batchGeneratorCode(StringUtils.split(tableNames, ","));
     }
 }

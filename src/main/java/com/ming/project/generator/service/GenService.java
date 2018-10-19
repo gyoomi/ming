@@ -14,5 +14,17 @@ package com.ming.project.generator.service;
  */
 public interface GenService {
 
+    /**
+     * 生成
+     *
+     * @param tableName
+     */
     void generatorCode(String tableName);
+
+    /**
+     * 批量生成
+     *
+     * @param tableNames
+     */
+    void batchGeneratorCode(String[] tableNames);
 }
