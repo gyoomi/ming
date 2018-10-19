@@ -3,3 +3,4 @@ ming:
     gen:
       autoRemovePrefix: true
       packageName: com.ming.project.system
+      genDestDir: D:/

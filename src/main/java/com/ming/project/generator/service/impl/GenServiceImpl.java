@@ -62,7 +62,7 @@ public class GenServiceImpl implements GenService {
         List<String> templates = GenUtils.getTemplates();
         for (String t : templates) {
             try {
-                File f = new File("d:\\" + GenUtils.getFileName(t, tableEntity, moduleName));
+                File f = new File(projectProperties.getGen().getGenDestDir() + GenUtils.getFileName(t, tableEntity, moduleName));
                 fileProber(f);
                 FileWriter fw = new FileWriter(f);
                 StringWriter sw = new StringWriter();

@@ -24,6 +24,8 @@ public class GenProperties {
 
     private String mapperPath = "main/resource/mapper";
 
+    private String genDestDir = "D:/";
+
     public Boolean getAutoRemovePrefix() {
         return autoRemovePrefix;
     }
@@ -62,5 +64,13 @@ public class GenProperties {
 
     public void setMapperPath(String mapperPath) {
         this.mapperPath = mapperPath;
+    }
+
+    public String getGenDestDir() {
+        return genDestDir;
+    }
+
+    public void setGenDestDir(String genDestDir) {
+        this.genDestDir = genDestDir;
     }
 }
