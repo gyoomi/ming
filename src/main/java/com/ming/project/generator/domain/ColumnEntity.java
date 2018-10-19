@@ -34,6 +34,11 @@ public class ColumnEntity extends BaseEntity {
      */
     private String littleCamelCaseFieldName;
 
+    /**
+     * 自增表示
+     */
+    private String extra;
+
     public String getColumnName() {
         return columnName;
     }
@@ -80,5 +85,13 @@ public class ColumnEntity extends BaseEntity {
 
     public void setLittleCamelCaseFieldName(String littleCamelCaseFieldName) {
         this.littleCamelCaseFieldName = littleCamelCaseFieldName;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }
