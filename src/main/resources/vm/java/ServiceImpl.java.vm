@@ -1,13 +1,24 @@
-package ${package}.service.impl;
-
-import java.util.List;
-
-import com.ming.common.util.StringUtils;
+package ${package}import com.taoding.ipr.base.dao.BaseDAO;
+import com.taoding.ipr.base.model.PageVO;
+import com.taoding.ipr.base.model.UserSession;
+import com.taoding.ipr.util.CommonUtils;
+import com.taoding.ipr.util.UpdateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
-import ${package}.mapper.${bigCamelCaseClassName}Mapper;
-import ${package}.domain.${bigCamelCaseClassName}Entity;
-import ${package}.service.${bigCamelCaseClassName}Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+.service.impl;
+    ${package}
+        .dao.${bigCamelCaseClassName}Repository;
+    ${package}
+        .entity.${bigCamelCaseClassName}Entity; ${package}.service.${bigCamelCaseClassName}Service;
 
 
 /**
@@ -17,10 +28,10 @@ import ${package}.service.${bigCamelCaseClassName}Service;
  * @version ${datetime}
  */
 @Service
-public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassName}Service {
+public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bigCamelCaseClassName}Service {
 
     @Autowired
-    private ${bigCamelCaseClassName}Mapper ${littleCamelCaseClassName}Mapper;
+    private ${bigCamelCaseClassName}Repository ${littleCamelCaseClassName}Repository;
 
     /**
      * 查询${tableComment}信息
@@ -30,7 +41,7 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
     @Override
     public ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
-        return ${littleCamelCaseClassName}Mapper.findById(${primary.littleCamelCaseFieldName});
+        return ${littleCamelCaseClassName}Repository.findById(${primary.littleCamelCaseFieldName}).orElse(null);
     }
 
     /**
@@ -41,7 +52,7 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
     @Override
     public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-        return ${littleCamelCaseClassName}Mapper.findByList(${littleCamelCaseClassName});
+        return ${littleCamelCaseClassName}Repository.findAll();
     }
 
     /**
@@ -52,7 +63,12 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
      @Override
      public ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-         return ${littleCamelCaseClassName}Mapper.save(${littleCamelCaseClassName});
+         ${littleCamelCaseClassName}.setId(CommonUtils.getUUID());
+         ${littleCamelCaseClassName}.setCreateTime(CommonUtils.getStringDate(new Date()));
+         ${littleCamelCaseClassName}.setStatus(1);
+         ${littleCamelCaseClassName}.setCorpId(UserSession.getUserSession().getCorpId());
+         ${littleCamelCaseClassName}.setOperator(UserSession.getUserSession().getUsername());
+         return ${littleCamelCaseClassName}Repository.save(${littleCamelCaseClassName});
      }
 
     /**
@@ -63,8 +79,30 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
      @Override
      public ${bigCamelCaseClassName}Entity update(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-         return ${littleCamelCaseClassName}Mapper.update(${littleCamelCaseClassName});
+         if (StringUtils.isNotBlank(${littleCamelCaseClassName}.getId())) {
+             ${bigCamelCaseClassName}Entity source${bigCamelCaseClassName} = ${littleCamelCaseClassName}Repository.findById(${littleCamelCaseClassName}.getId()).orElse(null);
+             UpdateUtils.copyNonNullProperties(source${bigCamelCaseClassName}, ${littleCamelCaseClassName});
+         }
+         return ${littleCamelCaseClassName}Repository.saveAndFlush(${littleCamelCaseClassName});
      }
+
+    /**
+     * 带条件分页查询${tableComment}列表
+     *
+     * @param params  ${tableComment}
+     * @return PageVO
+     */
+    @Override
+    public PageVO<${bigCamelCaseClassName}Entity> findByPage(Map<String, String> params) {
+        int pageNo = null == params.get("pageNo") ? 1 : Integer.parseInt(params.get("pageNo"));
+        int pageSize = null == params.get("pageSize") ? 15 : Integer.parseInt(params.get("pageSize"));
+        List<Object> args = new ArrayList<>();
+        String sql = " SELECT * FROM ${tableName} "
+                   + " WHERE 1=1 "
+                   + " ORDER BY create_time DESC";
+        // TODO
+        return getPage(sql, pageNo, pageSize, args, new BeanPropertyRowMapper(${bigCamelCaseClassName}Entity.class));
+    }
 
     /**
      * 删除${tableComment}
@@ -74,7 +112,8 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
     @Override
     public int deleteById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
-        return ${littleCamelCaseClassName}Mapper.deleteById(${primary.littleCamelCaseFieldName});
+        ${littleCamelCaseClassName}Repository.deleteById(${primary.littleCamelCaseFieldName});
+        return 1;
     }
 
     /**
@@ -85,7 +124,8 @@ public class ${bigCamelCaseClassName}ServiceImpl implements ${bigCamelCaseClassN
      */
     @Override
     public int deleteByIds(String ${primary.littleCamelCaseFieldName}s) {
-        String[] ids = StringUtils.split(${primary.littleCamelCaseFieldName}s, ",");
-        return ${littleCamelCaseClassName}Mapper.deleteByIds(ids);
+        String[] idsToUse = StringUtils.split(${primary.littleCamelCaseFieldName}s, ",");
+        Stream.of(idsToUse).forEach(${littleCamelCaseClassName}Repository::deleteById);
+        return 1;
     }
 }

@@ -4,64 +4,18 @@
  * All Rights Reserved.
  */
 
-package ${package}.mapper;
+package ${package}import org.springframework.data.jpa.repository.JpaRepository;
 
-import ${package}.domain.${bigCamelCaseClassName}Entity;
-import java.util.List;
+.dao;
+    ${package}
+        .entity.${bigCamelCaseClassName}Entity;
 
 /**
- * ${tableComment} Mapper
+ * ${tableComment} Repository
  *
  * @author ${author}
  * @version ${datetime}
  */
-public interface ${bigCamelCaseClassName}Mapper {
+public interface ${bigCamelCaseClassName}Repository extends JpaRepository<${bigCamelCaseClassName}Entity, String> {
 
-    /**
-     * 查询
-     *
-     * @param ${primary.littleCamelCaseFieldName} ${tableComment}Id
-     * @return ${tableComment}
-     */
-    ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName});
-
-    /**
-     * 查询列表
-     *
-     * @param ${littleCamelCaseClassName} ${tableComment}
-     * @return ${tableComment}List
-     */
-    List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
-
-    /**
-     * 保存
-     *
-     * @param ${littleCamelCaseClassName} ${tableComment}
-     * @return ${tableComment}
-     */
-    ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
-
-    /**
-     * 更新
-     *
-     * @param ${littleCamelCaseClassName} ${tableComment}
-     * @return ${tableComment}
-     */
-    ${bigCamelCaseClassName}Entity update(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
-
-    /**
-     * 删除
-     *
-     * @param ${primary.littleCamelCaseFieldName}
-     * @return
-     */
-    int deleteById(${primary.fieldType} ${primary.littleCamelCaseFieldName});
-
-    /**
-     * 批量删除
-     *
-     * @param ${primary.littleCamelCaseFieldName}s
-     * @return
-     */
-    int deleteByIds(String[] ${primary.littleCamelCaseFieldName}s);
 }

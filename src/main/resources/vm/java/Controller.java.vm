@@ -1,15 +1,18 @@
-package ${package}.web.controller;
-
-import com.ming.framework.web.BaseController;
+package ${package}import com.taoding.ipr.base.model.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ${package}.domain.${bigCamelCaseClassName}Entity;
-import ${package}.service.${bigCamelCaseClassName}Service;
 
 import java.util.List;
+import java.util.Map;
+
+.controller;
+    ${package}
+        .entity.${bigCamelCaseClassName}Entity;
+    ${package}
+        .service.${bigCamelCaseClassName}Service;
 
 /**
  * ${tableComment} Controller
@@ -19,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/${moduleName}/${littleCamelCaseClassName}")
-public class ${bigCamelCaseClassName}Controller extends BaseController {
+public class ${bigCamelCaseClassName}Controller {
 
     @Autowired
     private ${bigCamelCaseClassName}Service ${littleCamelCaseClassName}Service;
@@ -66,6 +69,17 @@ public class ${bigCamelCaseClassName}Controller extends BaseController {
     @GetMapping(value = "/findById")
     public ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
         return ${littleCamelCaseClassName}Service.findById(${primary.littleCamelCaseFieldName});
+    }
+
+    /**
+     * 带条件分页查询${tableComment}列表
+     *
+     * @param params ${tableComment}
+     * @return ${tableComment}
+     */
+    @PostMapping("/findByPage")
+    public PageVO<${bigCamelCaseClassName}Entity> findByPage(Map<String, String> params) {
+        return ${littleCamelCaseClassName}Service.findByPage(params);
     }
 
     /**

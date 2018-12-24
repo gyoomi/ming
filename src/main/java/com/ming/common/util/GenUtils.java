@@ -126,7 +126,6 @@ public class GenUtils {
         templates.add("vm/java/Mapper.java.vm");
         templates.add("vm/java/Service.java.vm");
         templates.add("vm/java/ServiceImpl.java.vm");
-        templates.add("vm/mapper/Mapper.xml.vm");
         return templates;
     }
 
@@ -144,10 +143,10 @@ public class GenUtils {
         String javaPath = PROJECT_PATH + "/" + moduleName + "/";
         String mapperPath = MAPPER_PATH + "/" + moduleName + "/";
         if (template.contains("Domain.java.vm")) {
-            return javaPath + "domain" + "/" + bigCamelCaseClassName + "Entity.java";
+            return javaPath + "entity" + "/" + bigCamelCaseClassName + "Entity.java";
         }
         if (template.contains("Mapper.java.vm")) {
-            return javaPath + "mapper" + "/" + bigCamelCaseClassName + "Mapper.java";
+            return javaPath + "dao" + "/" + bigCamelCaseClassName + "Repository.java";
         }
         if (template.contains("Service.java.vm")) {
             return javaPath + "service" + "/" + bigCamelCaseClassName + "Service.java";
@@ -156,10 +155,7 @@ public class GenUtils {
             return javaPath + "service/impl" + "/" + bigCamelCaseClassName + "ServiceImpl.java";
         }
         if (template.contains("Controller.java.vm")) {
-            return javaPath + "web/controller" + "/" + bigCamelCaseClassName + "Controller.java";
-        }
-        if (template.contains("Mapper.xml.vm")) {
-            return mapperPath + bigCamelCaseClassName +  "Mapper.xml";
+            return javaPath + "controller" + "/" + bigCamelCaseClassName + "Controller.java";
         }
         return null;
     }

@@ -2,5 +2,6 @@ ming:
   common:
     gen:
       autoRemovePrefix: true
-      packageName: com.ming.project.system
+      packageName: com.taoding.ipr.core.company
       genDestDir: D:/
+      projectPath: main/java/com/taoding/ipr/core

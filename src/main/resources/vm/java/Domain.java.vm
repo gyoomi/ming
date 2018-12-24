@@ -3,15 +3,18 @@
  * <p>
  * All Rights Reserved.
  */
-package ${package}.domain;
+package ${package}import com.taoding.ipr.base.model.BaseEntity;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ming.framework.BaseEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+        .entity;
 #foreach($column in $columns)
-#if($column.fieldType == 'Date')
-import java.io.Serializable;
-import java.util.Date;
+    #if($column.fieldType=='Date')
 #end
 #end
 
@@ -21,34 +24,30 @@ import java.util.Date;
  * @author ${author}
  * @version ${datetime}
  */
-public class ${bigCamelCaseClassName}Entity implements Serializable {
+@Accessors(chain = true)
+@Data
+@Entity
+@Table(name = "${tableName}")
+public class ${bigCamelCaseClassName}Entity {
 
 #foreach($column in $columns)
+#if($column.littleCamelCaseFieldName == 'id')
 
     /**
      * ${column.columnComment}
      */
+    @Id
+    @Column(unique = true,length = 32)
+    private $column.fieldType $column.littleCamelCaseFieldName;
+#else
+
+    /**
+     * ${column.columnComment}
+     */
+    @Column
     private $column.fieldType $column.littleCamelCaseFieldName;
 #end
 
-#foreach($column in $columns)
-    public void set${column.bigCamelCaseFieldName}($column.fieldType $column.littleCamelCaseFieldName) {
-        this.$column.littleCamelCaseFieldName = $column.littleCamelCaseFieldName;
-    }
-
-    public $column.fieldType get${column.bigCamelCaseFieldName}() {
-        return $column.littleCamelCaseFieldName;
-    }
 #end
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-#foreach ($column in $columns)
-        .append("${column.littleCamelCaseFieldName}", get${column.bigCamelCaseFieldName}())
-#end
-        .toString();
-    }
-
 
 }
