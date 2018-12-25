@@ -35,7 +35,7 @@ public interface ${bigCamelCaseClassName}Service {
      * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}List
      */
-    List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName});
+    List<${bigCamelCaseClassName}Entity> findByList();
 
     /**
      * 带条件分页查询${tableComment}列表

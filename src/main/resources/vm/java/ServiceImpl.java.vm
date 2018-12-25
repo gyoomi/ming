@@ -51,7 +51,7 @@ public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bi
      * @return ${tableComment}List
      */
     @Override
-    public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+    public List<${bigCamelCaseClassName}Entity> findByList() {
         return ${littleCamelCaseClassName}Repository.findAll();
     }
 
@@ -63,12 +63,21 @@ public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bi
      */
      @Override
      public ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+         setBaseProperties(${littleCamelCaseClassName});
+         return ${littleCamelCaseClassName}Repository.save(${littleCamelCaseClassName});
+     }
+
+    /**
+     * 通用设置
+     *
+     * @param ${littleCamelCaseClassName}
+     */
+     private void setBaseProperties(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
          ${littleCamelCaseClassName}.setId(CommonUtils.getUUID());
          ${littleCamelCaseClassName}.setCreateTime(CommonUtils.getStringDate(new Date()));
          ${littleCamelCaseClassName}.setStatus(1);
          ${littleCamelCaseClassName}.setCorpId(UserSession.getUserSession().getCorpId());
          ${littleCamelCaseClassName}.setOperator(UserSession.getUserSession().getUsername());
-         return ${littleCamelCaseClassName}Repository.save(${littleCamelCaseClassName});
      }
 
     /**
@@ -97,9 +106,9 @@ public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bi
         int pageNo = null == params.get("pageNo") ? 1 : Integer.parseInt(params.get("pageNo"));
         int pageSize = null == params.get("pageSize") ? 15 : Integer.parseInt(params.get("pageSize"));
         List<Object> args = new ArrayList<>();
-        String sql = " SELECT * FROM ${tableName} "
+        String sql = " SELECT t1.* FROM ${tableName} t1 "
                    + " WHERE 1=1 "
-                   + " ORDER BY create_time DESC";
+                   + " ORDER BY t1.create_time DESC";
         // TODO
         return getPage(sql, pageNo, pageSize, args, new BeanPropertyRowMapper(${bigCamelCaseClassName}Entity.class));
     }
@@ -124,8 +133,7 @@ public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bi
      */
     @Override
     public int deleteByIds(String ${primary.littleCamelCaseFieldName}s) {
-        String[] idsToUse = StringUtils.split(${primary.littleCamelCaseFieldName}s, ",");
-        Stream.of(idsToUse).forEach(${littleCamelCaseClassName}Repository::deleteById);
+        Stream.of(StringUtils.split(${primary.littleCamelCaseFieldName}s, ",")).forEach(${littleCamelCaseClassName}Repository::deleteById);
         return 1;
     }
 }

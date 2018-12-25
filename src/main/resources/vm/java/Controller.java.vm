@@ -1,9 +1,6 @@
 package ${package}import com.taoding.ipr.base.model.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +31,7 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${bigCamelCaseClassName}
      */
     @PostMapping(value = "/save")
-    public ${bigCamelCaseClassName}Entity save(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+    public ${bigCamelCaseClassName}Entity save(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
         return ${littleCamelCaseClassName}Service.save(${littleCamelCaseClassName});
     }
 
@@ -45,7 +42,7 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${bigCamelCaseClassName}
      */
     @PostMapping(value = "/update")
-    public ${bigCamelCaseClassName}Entity update(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+    public ${bigCamelCaseClassName}Entity update(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
         return ${littleCamelCaseClassName}Service.update(${littleCamelCaseClassName});
     }
 
@@ -56,8 +53,8 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${tableComment}List
      */
     @PostMapping(value = "/findByList")
-    public List<${bigCamelCaseClassName}Entity> findByList(${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-        return ${littleCamelCaseClassName}Service.findByList(${littleCamelCaseClassName});
+    public List<${bigCamelCaseClassName}Entity> findByList() {
+        return ${littleCamelCaseClassName}Service.findByList();
     }
 
     /**
@@ -78,7 +75,7 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${tableComment}
      */
     @PostMapping("/findByPage")
-    public PageVO<${bigCamelCaseClassName}Entity> findByPage(Map<String, String> params) {
+    public PageVO<${bigCamelCaseClassName}Entity> findByPage(@RequestBody Map<String, String> params) {
         return ${littleCamelCaseClassName}Service.findByPage(params);
     }
 

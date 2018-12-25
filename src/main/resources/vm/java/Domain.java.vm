@@ -37,7 +37,7 @@ public class ${bigCamelCaseClassName}Entity {
      * ${column.columnComment}
      */
     @Id
-    @Column(unique = true,length = 32)
+    @Column(length = 32)
     private $column.fieldType $column.littleCamelCaseFieldName;
 #else
 
