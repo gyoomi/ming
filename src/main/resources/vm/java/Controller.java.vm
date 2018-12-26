@@ -16,7 +16,7 @@ import ${package}.service.${bigCamelCaseClassName}Service;
  * @version ${datetime}
  */
 @RestController
-@RequestMapping(value = "/${moduleName}/${littleCamelCaseClassName}")
+@RequestMapping(value = "/api/${moduleName}/${littleCamelCaseClassName}")
 public class ${bigCamelCaseClassName}Controller {
 
     @Autowired
