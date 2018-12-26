@@ -18,6 +18,6 @@ public class MingApplicationTests {
 
 	@Test
 	public void test01() {
-		genController.batchGenCode("demander,expert,industry,need");
+		genController.batchGenCode("information");
 	}
 }

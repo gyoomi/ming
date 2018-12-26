@@ -1,15 +1,13 @@
-package ${package}import com.taoding.ipr.base.model.PageVO;
+package ${package}.controller;
+
+import com.taoding.ipr.base.model.PageVO;
+import com.taoding.ipr.base.model.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
-
-.controller;
-    ${package}
-        .entity.${bigCamelCaseClassName}Entity;
-    ${package}
-        .service.${bigCamelCaseClassName}Service;
+import ${package}.entity.${bigCamelCaseClassName}Entity;
+import ${package}.service.${bigCamelCaseClassName}Service;
 
 /**
  * ${tableComment} Controller
@@ -31,8 +29,8 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${bigCamelCaseClassName}
      */
     @PostMapping(value = "/save")
-    public ${bigCamelCaseClassName}Entity save(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-        return ${littleCamelCaseClassName}Service.save(${littleCamelCaseClassName});
+    public ResponseVO<${bigCamelCaseClassName}Entity> save(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+        return new ResponseVO<>(${littleCamelCaseClassName}Service.save(${littleCamelCaseClassName}));
     }
 
     /**
@@ -42,19 +40,18 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${bigCamelCaseClassName}
      */
     @PostMapping(value = "/update")
-    public ${bigCamelCaseClassName}Entity update(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
-        return ${littleCamelCaseClassName}Service.update(${littleCamelCaseClassName});
+    public ResponseVO<${bigCamelCaseClassName}Entity> update(@RequestBody ${bigCamelCaseClassName}Entity ${littleCamelCaseClassName}) {
+        return new ResponseVO<>(${littleCamelCaseClassName}Service.update(${littleCamelCaseClassName}));
     }
 
     /**
      * 查询${tableComment}列表
      *
-     * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}List
      */
     @PostMapping(value = "/findByList")
-    public List<${bigCamelCaseClassName}Entity> findByList() {
-        return ${littleCamelCaseClassName}Service.findByList();
+    public ResponseVO<List<${bigCamelCaseClassName}Entity>> findByList() {
+        return new ResponseVO<>(${littleCamelCaseClassName}Service.findByList());
     }
 
     /**
@@ -64,8 +61,8 @@ public class ${bigCamelCaseClassName}Controller {
      * @return ${tableComment}
      */
     @GetMapping(value = "/findById")
-    public ${bigCamelCaseClassName}Entity findById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
-        return ${littleCamelCaseClassName}Service.findById(${primary.littleCamelCaseFieldName});
+    public ResponseVO<${bigCamelCaseClassName}Entity> findById(${primary.fieldType} ${primary.littleCamelCaseFieldName}) {
+        return new ResponseVO<>(${littleCamelCaseClassName}Service.findById(${primary.littleCamelCaseFieldName}));
     }
 
     /**

@@ -1,4 +1,14 @@
-package ${package}import com.taoding.ipr.base.dao.BaseDAO;
+/**
+ * Copyright © 2018, Leon
+ * <p>
+ * All Rights Reserved.
+ */
+package ${package}.service.impl;
+
+import ${package}.dao.${bigCamelCaseClassName}Repository;
+import ${package}.entity.${bigCamelCaseClassName}Entity;
+import ${package}.service.${bigCamelCaseClassName}Service;
+import com.taoding.ipr.base.dao.BaseDAO;
 import com.taoding.ipr.base.model.PageVO;
 import com.taoding.ipr.base.model.UserSession;
 import com.taoding.ipr.util.CommonUtils;
@@ -7,19 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-
-.service.impl;
-    ${package}
-        .dao.${bigCamelCaseClassName}Repository;
-    ${package}
-        .entity.${bigCamelCaseClassName}Entity; ${package}.service.${bigCamelCaseClassName}Service;
-
 
 /**
  * ${tableComment} ServiceImpl
@@ -47,7 +49,6 @@ public class ${bigCamelCaseClassName}ServiceImpl extends BaseDAO implements ${bi
     /**
      * 查询${tableComment}列表
      *
-     * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}List
      */
     @Override

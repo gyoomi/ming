@@ -4,14 +4,12 @@
  * All Rights Reserved.
  */
 
-package ${package}import com.taoding.ipr.base.model.PageVO;
+package ${package}.service;
 
+import com.taoding.ipr.base.model.PageVO;
+import ${package}.entity.${bigCamelCaseClassName}Entity;
 import java.util.List;
 import java.util.Map;
-
-.service;
-    ${package}
-        .entity.${bigCamelCaseClassName}Entity;
 
 /**
  * ${tableComment} Service
@@ -32,7 +30,6 @@ public interface ${bigCamelCaseClassName}Service {
     /**
      * 查询${tableComment}列表
      *
-     * @param ${littleCamelCaseClassName} ${tableComment}
      * @return ${tableComment}List
      */
     List<${bigCamelCaseClassName}Entity> findByList();

@@ -4,11 +4,10 @@
  * All Rights Reserved.
  */
 
-package ${package}import org.springframework.data.jpa.repository.JpaRepository;
+package ${package}.dao;
 
-.dao;
-    ${package}
-        .entity.${bigCamelCaseClassName}Entity;
+import ${package}.entity.${bigCamelCaseClassName}Entity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * ${tableComment} Repository

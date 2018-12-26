@@ -3,19 +3,19 @@
  * <p>
  * All Rights Reserved.
  */
-package ${package}import com.taoding.ipr.base.model.BaseEntity;
+package ${package}.entity;
+
+import com.taoding.ipr.base.model.BaseEntity;
+import javax.persistence.Id;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-        .entity;
 #foreach($column in $columns)
-    #if($column.fieldType=='Date')
-#end
+    #if($column.fieldType == 'Date')
+    import java.util.Date;
+    #end
 #end
 
 /**
@@ -28,7 +28,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "${tableName}")
-public class ${bigCamelCaseClassName}Entity {
+public class ${bigCamelCaseClassName}Entity extends BaseEntity {
 
 #foreach($column in $columns)
 #if($column.littleCamelCaseFieldName == 'id')
